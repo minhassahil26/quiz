@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./css/dashboard.css">
+</head>
+
+<body>
+  <h1>Dashboard</h1>
+  <ul style="gap: 5px;">
+    <li ><a href="attempts.html">Attempts</a></li>
+    <li><a href="startquiz.html">Start Quiz</a></li>
+    <li><button id="logout-btn">Logout</button></li>
+  </ul>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  
+      document.getElementById('logout-btn').addEventListener('click', async () => {
+        try {
+          const response = await fetch("http://localhost:5000/logout", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          if (response.ok) {
+           
+            localStorage.removeItem('token'); 
+            sessionStorage.clear(); 
+            
+            window.location.href = 'login.html';
+          } else {
+          
+            alert('Logout failed');
+          }
+        } catch (error) {
+          console.error('Error logging out:', error);
+          alert('An error occurred while logging out');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
